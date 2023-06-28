@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 from flask import jsonify
 import mysql.connector
 from mysql.connector import errorcode
+from flask import jsonify
 
 
 DATABASE = {
@@ -72,7 +73,7 @@ class Users:
             c = conn.cursor()
             c.execute('''
                 INSERT INTO user (DNI, Name, Lastname, Email, Password)
-                VALUES (?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s)
             ''', (user["DNI"], user["Name"], user["Lastname"], user["Email"], user["Password"]))
             conn.commit()
             return jsonify({'message': 'user created successfully'}), 200
